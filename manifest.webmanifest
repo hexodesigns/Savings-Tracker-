@@ -1,6 +1,6 @@
 {
-  "name": "Pondo — Daily Savings",
-  "short_name": "Pondo",
+  "name": "SaveNest — Daily Savings",
+  "short_name": "SaveNest",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
