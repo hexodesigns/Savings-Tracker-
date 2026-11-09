@@ -2,13 +2,45 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#7654df"><meta name="description" content="A simple private daily savings tracker"><link rel="manifest" href="./manifest.webmanifest"><title>SaveNest — Daily Savings</title>
 <style>
 :root{--bg:#f6f4fb;--card:#fff;--ink:#211b30;--muted:#827b91;--line:#ebe7f2;--accent:#7654df;--soft:#eee9ff;--shadow:0 8px 28px #30205a0d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui;padding:env(safe-area-inset-top) 0 85px}body.dark{--bg:#15121d;--card:#211c2c;--ink:#f5f1ff;--muted:#aaa1b9;--line:#393146;--accent:#a58bff;--soft:#33294b;--shadow:0 8px 28px #0003}.app{max-width:720px;margin:auto;padding:16px}.top,.row,.head,.foot{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-size:23px;font-weight:850}.brand span{color:var(--accent)}button{font:inherit;cursor:pointer}.icon,.secondary{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:11px 14px}.icon{width:44px;height:44px;font-size:18px}.primary{background:var(--accent);color:white;border:0;border-radius:14px;padding:13px 17px;font-weight:750;min-height:46px}.hero{margin:22px 0}.eyebrow,.muted,small{color:var(--muted)}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1px}.hero h1{font-size:30px;line-height:1.1;margin:7px 0}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 25px}.card,.stat{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:16px;box-shadow:var(--shadow)}.stat strong{display:block;font-size:22px;margin-top:5px}.head{margin:20px 0 12px}.head h2{font-size:17px;margin:0}.goal{margin-bottom:12px}.goalname{font-size:17px;font-weight:800}.amount{font-size:21px;font-weight:850;margin:12px 0}.pill{background:var(--soft);color:var(--accent);border-radius:30px;padding:5px 9px;font-size:11px;font-weight:800}.track{height:9px;border-radius:20px;background:var(--soft);overflow:hidden;margin:12px 0}.track i{display:block;height:100%;background:var(--accent)}.foot{font-size:12px;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.screen{display:none}.screen.active{display:block}.back{border:0;background:none;color:var(--accent);font-weight:800;padding:12px 0}.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}.day{aspect-ratio:1;border-radius:8px;background:var(--soft);display:grid;place-items:center;font-size:10px;color:var(--muted)}.day.saved{background:var(--accent);color:white}.day.today{outline:2px solid var(--accent);outline-offset:2px}.milestones,.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.mile{background:var(--soft);padding:10px 2px;border-radius:12px;text-align:center;font-size:11px;color:var(--muted)}.mile.done{background:#dff6ec;color:#16734f}.statgrid{grid-template-columns:1fr 1fr}.mini{border:1px solid var(--line);padding:12px;border-radius:13px}.mini strong{display:block;font-size:16px}.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);padding:12px 20px calc(12px + env(safe-area-inset-bottom));display:flex;justify-content:center}.navin{width:100%;max-width:680px;display:flex;justify-content:space-around}.nav button{background:none;border:0;color:var(--muted);display:grid;justify-items:center}.nav button.active{color:var(--accent);font-weight:800}.modal{display:none;position:fixed;inset:0;background:#100b1d99;z-index:5;align-items:flex-end;justify-content:center;padding:12px}.modal.show{display:flex}.sheet{width:100%;max-width:580px;max-height:92vh;overflow:auto;background:var(--card);border-radius:24px;padding:20px}.field{display:grid;gap:6px;margin:13px 0}.field label{font-size:11px;color:var(--muted);font-weight:800}.field input{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}.formrow{display:flex;gap:10px}.formrow>*{min-width:0;flex:1}.sheetactions{display:flex;gap:8px}.sheetactions>*{flex:1}.empty{text-align:center;padding:30px}.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#292238;color:white;padding:11px 16px;border-radius:30px;opacity:0;z-index:10}.toast.show{opacity:1}.settingsrow{padding:14px 0;border-bottom:1px solid var(--line)}.note{font-size:12px;color:var(--muted);line-height:1.5}.reminderbox{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:14px 16px;background:var(--soft);border:1px solid var(--line);border-radius:17px}.reminderbox b{display:block}.reminderbox small{display:block;margin-top:3px}@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}.modal{align-items:center}}
+
+/* Savings Quest — isolated feature */
+.quest-wallet{background:linear-gradient(135deg,#7654df,#9a7bea);color:#fff;border:0;padding:22px;margin:18px 0}
+.quest-wallet .eyebrow,.quest-wallet .muted{color:#eee8ff}
+.quest-balance{font-size:34px;font-weight:900;letter-spacing:-1px;margin:8px 0 16px}
+.quest-wallet .primary{background:#fff;color:#6542cf}
+.quest-goal{margin:12px 0}
+.quest-goal .track{height:11px}
+.quest-history{margin-top:18px}
+.quest-history-row{padding:12px 0;border-bottom:1px solid var(--line)}
+.quest-positive{color:#16845b}.quest-negative{color:#d44}
+.quest-nav-label{font-size:10px}
+#quest .head{margin-top:22px}
+#quest .empty{margin-top:12px}
+@media(max-width:390px){.nav{padding-left:8px;padding-right:8px}.navin{gap:4px}.nav button{font-size:13px}.quest-balance{font-size:29px}}
 </style></head><body><div class="app"><header class="top"><div class="brand">SaveNest<span>.</span></div><button class="icon" id="theme">☾</button></header>
 <section id="home" class="screen active"><div class="hero"><div class="eyebrow" id="today"></div><h1>Small steps.<br>Big goals.</h1><p class="muted">Every little deposit moves you forward.</p></div><div class="reminderbox"><div><b>🔔 Daily reminder</b><small id="reminderStatus">Set a daily savings notification</small></div><button class="secondary" id="reminderShortcut">Set up</button></div><div class="reminderbox" id="backupReminderBanner" hidden><div><b>📁 Phone backup needs attention</b><small id="backupReminderText">Reconnect your backup folder to keep your latest changes safe.</small></div><button class="secondary" id="backupReminderAction">Reconnect</button></div><div class="stats" id="summary"></div><div class="head"><h2>Your goals</h2><button class="primary" id="new">＋ New goal</button></div><div id="goals"></div></section>
+
+<section id="quest" class="screen">
+  <div class="hero"><div class="eyebrow">A SEPARATE SAVINGS SPACE</div><h1>Savings Quest</h1><p class="muted">One shared balance. Multiple goals. Your progress, your way.</p></div>
+  <div class="card quest-wallet">
+    <div class="eyebrow">TOTAL QUEST SAVINGS</div>
+    <div class="quest-balance" id="questBalance">₹0</div>
+    <button class="primary" id="questAddMoney">＋ Add Savings</button>
+    <p class="note" style="color:#eee8ff;margin-bottom:0">This balance is independent of your regular SaveNest savings.</p>
+  </div>
+  <div class="head"><h2>Your quests</h2><button class="primary" id="questNewGoal">＋ Add Goal</button></div>
+  <div id="questGoals"></div>
+  <div class="card quest-history"><div class="head"><h2>Quest history</h2><small id="questTxCount">0 transactions</small></div><div id="questTransactions"></div></div>
+</section>
 <section id="detail" class="screen"><button class="back" id="back">← All goals</button><div id="detailContent"></div></section>
 <section id="settings" class="screen"><div class="hero"><div class="eyebrow">PREFERENCES</div><h1>Settings</h1><p class="muted">Sign in with your mobile number to sync savings across devices.</p><div class="settingsrow"><b id="accountStatus">Not signed in</b><div id="phoneLoginPanel"><p class="note">Sign in with your mobile number. We will send a verification code by SMS.</p><div class="field"><label>PHONE NUMBER</label><input id="phoneNumber" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91 9876543210"></div><div id="recaptcha-container"></div><button class="primary" id="sendOtpBtn" style="width:100%">Send OTP</button><div id="otpPanel" hidden><div class="field"><label>6-DIGIT VERIFICATION CODE</label><input id="otpCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Enter OTP"></div><button class="primary" id="verifyOtpBtn" style="width:100%">Verify and sign in</button><button class="secondary" id="changePhoneBtn" style="width:100%;margin-top:8px">Change phone number</button></div><p class="note" id="phoneAuthStatus" aria-live="polite"></p></div><button class="secondary" id="logoutBtn" hidden>Sign out</button></div><div class="settingsrow"><b>Google Drive backup</b><p class="note" id="driveStatus">Connect Drive to keep an updated backup in your Google Drive.</p><button class="secondary" id="driveBtn">Connect Google Drive</button></div></div><div class="card" style="margin-bottom:12px"><b>Automatic phone backup</b><p class="note">Choose a folder on your phone. SaveNest will keep updating one file named <b>SaveNest-backup.json</b> whenever you make a change.</p><div class="actions"><button class="primary" id="localBackupBtn">Choose backup folder</button></div><p class="note" id="localBackupStatus">Not connected · your data remains saved in this browser.</p></div><div class="card"><div class="settingsrow"><b>Daily notification reminder</b><p class="note">Get a notification once a day to remember your savings.</p><label><input type="checkbox" id="remind"> Enable daily reminder</label></div><div class="settingsrow">Notification time <input type="time" id="remindTime" value="20:00"></div><button class="primary" id="saveReminder" style="width:100%;margin-top:14px">Save reminder</button><p class="note">Browser reminders are checked while the app is open or recently active. Exact-time alarms while fully closed require a native Android app or push server.</p></div><div class="card" style="margin-top:12px"><b>Data & privacy</b><p class="note">No account, ads, analytics or network calls. Data is stored in this browser. Export backups periodically; clearing Chrome site data can erase it.</p><button class="secondary" id="export">Export backup</button> <button class="secondary" id="import">Import backup</button><input type="file" id="file" accept="application/json" hidden></div></section></div>
-<nav class="nav"><div class="navin"><button class="active" data-screen="home">⌂<small>Goals</small></button><button data-screen="settings">⚙<small>Settings</small></button></div></nav>
+<nav class="nav"><div class="navin"><button class="active" data-screen="home">⌂<small>Goals</small></button><button data-screen="settings">⚙<small>Settings</small></button><button data-screen="quest">✦<small>Quest</small></button></div></nav>
 <div class="modal" id="goalModal"><div class="sheet"><h2 id="formTitle">Create a goal</h2><form id="goalForm"><input id="gid" type="hidden"><div class="field"><label>GOAL NAME</label><input id="name" maxlength="48" required placeholder="e.g. New laptop"></div><div class="formrow"><div class="field"><label>TARGET AMOUNT (₹)</label><input id="target" type="number" min="1" required></div><div class="field"><label>TARGET DATE</label><input id="date" type="date" required></div></div><div class="field"><label>START DATE</label><input id="start" type="date" required></div><div class="sheetactions"><button type="button" class="secondary" id="cancel">Cancel</button><button class="primary">Save goal</button></div></form></div></div>
-<div class="modal" id="saveModal"><div class="sheet"><h2 id="saveTitle">Log savings</h2><form id="saveForm"><input id="saveOriginalDate" type="hidden"><input id="saveId" type="hidden"><div class="field"><label>AMOUNT SAVED (₹)</label><input id="amount" type="number" min="1" required placeholder="500"></div><div class="field"><label>DATE</label><input id="saveDate" type="date" required></div><div class="sheetactions"><button type="button" class="secondary" id="cancelSave">Cancel</button><button class="primary" id="saveSubmit">Add savings</button></div></form></div></div><div class="toast" id="toast"></div>
+<div class="modal" id="saveModal"><div class="sheet"><h2 id="saveTitle">Log savings</h2><form id="saveForm"><input id="saveOriginalDate" type="hidden"><input id="saveId" type="hidden"><div class="field"><label>AMOUNT SAVED (₹)</label><input id="amount" type="number" min="1" required placeholder="500"></div><div class="field"><label>DATE</label><input id="saveDate" type="date" required></div><div class="sheetactions"><button type="button" class="secondary" id="cancelSave">Cancel</button><button class="primary" id="saveSubmit">Add savings</button></div></form></div></div>
+<div class="modal" id="questGoalModal"><div class="sheet"><h2 id="questGoalTitle">Create quest goal</h2><form id="questGoalForm"><div class="field"><label>GOAL NAME</label><input id="questGoalName" maxlength="48" required placeholder="e.g. New laptop"></div><div class="field"><label>TARGET AMOUNT (₹)</label><input id="questGoalTarget" type="number" min="1" step="1" required placeholder="80000"></div><div class="field"><label>DESCRIPTION (OPTIONAL)</label><input id="questGoalDescription" maxlength="120" placeholder="What are you saving for?"></div><div class="sheetactions"><button type="button" class="secondary" id="questGoalCancel">Cancel</button><button class="primary">Save goal</button></div></form></div></div>
+<div class="modal" id="questDepositModal"><div class="sheet"><h2>Add to Quest savings</h2><form id="questDepositForm"><div class="field"><label>AMOUNT (₹)</label><input id="questDepositAmount" type="number" min="1" step="1" required placeholder="1000"></div><div class="field"><label>NOTE (OPTIONAL)</label><input id="questDepositNote" maxlength="120" placeholder="Monthly savings"></div><div class="field"><label>DATE</label><input id="questDepositDate" type="date" required></div><div class="sheetactions"><button type="button" class="secondary" id="questDepositCancel">Cancel</button><button class="primary">Add savings</button></div></form></div></div>
+<div class="modal" id="questClaimModal"><div class="sheet"><h2>Claim this goal?</h2><div id="questClaimDetails"></div><div class="sheetactions" style="margin-top:18px"><button type="button" class="secondary" id="questClaimCancel">Cancel</button><button class="primary" id="questClaimConfirm">Confirm claim</button></div></div></div>
+<div class="toast" id="toast"></div>
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
@@ -68,4 +100,97 @@ async function checkReminder(force=false){if(!db.remind||!('Notification'in wind
 setInterval(()=>{if(!document.hidden)checkReminder()},30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkReminder()});window.addEventListener('focus',()=>checkReminder());
 $('#export').onclick=()=>{let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='savenest-backup.json';a.click();URL.revokeObjectURL(a.href)};$('#import').onclick=()=>$('#file').click();$('#file').onchange=async e=>{try{let x=JSON.parse(await e.target.files[0].text());if(!Array.isArray(x.goals))throw 0;if(confirm('Replace current data with this backup?')){db=x;save();location.reload()}}catch{toast('Invalid backup') }};
 render();if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-</script></body></html>
+</script>
+
+<script type="module">
+(() => {
+  const KEY = "savenest_quest_v1";
+  const q = id => document.getElementById(id);
+  const today = () => { const d=new Date(); return new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,10); };
+  const money = n => new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n||0);
+  const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const id = () => (crypto.randomUUID ? crypto.randomUUID() : "q"+Date.now().toString(36)+Math.random().toString(36).slice(2));
+  const blank = () => ({version:1,balance:0,goals:[],transactions:[]});
+  let state;
+  try {
+    const raw=localStorage.getItem(KEY);
+    state=raw?JSON.parse(raw):blank();
+    if(!state || !Number.isSafeInteger(state.balance) || state.balance<0 || !Array.isArray(state.goals) || !Array.isArray(state.transactions)) state=blank();
+  } catch(e) { console.error("Quest data could not be read",e); state=blank(); }
+  const persist = () => { try { localStorage.setItem(KEY,JSON.stringify(state)); } catch(e) { alert("Could not save Quest data. Check available browser storage."); throw e; } };
+  const modal = (name,on) => q(name).classList.toggle("show",on);
+  const notify = message => { const t=q("toast"); t.textContent=message; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2200); };
+  const activeGoals = () => state.goals.filter(g=>!g.claimed);
+  function render(){
+    q("questBalance").textContent=money(state.balance);
+    const goals=state.goals;
+    q("questGoals").innerHTML=goals.length?goals.map(g=>{
+      const p=g.claimed?100:Math.min(100,Math.floor(state.balance/g.target*100));
+      const saved=g.claimed?g.target:Math.min(state.balance,g.target);
+      const left=g.claimed?0:Math.max(0,g.target-state.balance);
+      return '<article class="card quest-goal"><div class="row"><b class="goalname">'+esc(g.name)+'</b><span class="pill">'+(g.claimed?'Completed':p+'%')+'</span></div>'+
+        (g.description?'<p class="note">'+esc(g.description)+'</p>':'')+
+        '<div class="amount">'+money(saved)+' <small>of '+money(g.target)+'</small></div><div class="track"><i style="width:'+p+'%"></i></div>'+
+        '<div class="foot"><span>'+(g.claimed?'Claimed':money(left)+' remaining')+'</span><span>Target '+money(g.target)+'</span></div>'+
+        '<div class="actions">'+(g.claimed?'<span class="pill">✓ Claimed</span>':'')+
+        (!g.claimed&&state.balance>=g.target?'<button class="primary quest-claim" data-id="'+esc(g.id)+'">Withdraw / Claim</button>':'')+
+        (!g.claimed?'<button class="secondary quest-edit" data-id="'+esc(g.id)+'">Edit</button>':'')+
+        '<button class="secondary quest-delete" data-id="'+esc(g.id)+'">Delete</button></div></article>';
+    }).join(''):'<div class="card empty"><div style="font-size:34px">🎯</div><h3>Create your first quest</h3><p class="muted">Set a target. Your shared Quest balance will track progress for every goal.</p><button class="primary" id="questEmptyAdd">＋ Add Goal</button></div>';
+    q("questEmptyAdd")?.addEventListener("click",openGoal);
+    document.querySelectorAll(".quest-claim").forEach(b=>b.addEventListener("click",()=>openClaim(b.dataset.id)));
+    document.querySelectorAll(".quest-edit").forEach(b=>b.addEventListener("click",()=>openGoal(state.goals.find(g=>g.id===b.dataset.id))));
+    document.querySelectorAll(".quest-delete").forEach(b=>b.addEventListener("click",()=>deleteGoal(b.dataset.id)));
+    q("questTxCount").textContent=state.transactions.length+" transactions";
+    q("questTransactions").innerHTML=state.transactions.length?state.transactions.slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).map(t=>
+      '<div class="row quest-history-row"><span><b>'+esc(t.label)+'</b><br><small>'+esc(t.date)+(t.note?' · '+esc(t.note):'')+'</small></span><b class="'+(t.type==='deposit'?'quest-positive':'quest-negative')+'">'+(t.type==='deposit'?'+':'−')+money(t.amount)+'</b></div>'
+    ).join(''):'<p class="note">No Quest transactions yet. Add savings to get started.</p>';
+  }
+  let editingId=null,claimingId=null;
+  function openGoal(g){
+    editingId=g?.id||null;q("questGoalTitle").textContent=g?"Edit quest goal":"Create quest goal";
+    q("questGoalName").value=g?.name||"";q("questGoalTarget").value=g?.target||"";
+    q("questGoalDescription").value=g?.description||"";modal("questGoalModal",true);
+  }
+  q("questNewGoal").addEventListener("click",()=>openGoal());
+  q("questGoalCancel").addEventListener("click",()=>modal("questGoalModal",false));
+  q("questGoalForm").addEventListener("submit",e=>{
+    e.preventDefault();const name=q("questGoalName").value.trim(),target=Number(q("questGoalTarget").value),description=q("questGoalDescription").value.trim();
+    if(!name||!Number.isSafeInteger(target)||target<=0){notify("Enter a valid name and whole-number target");return;}
+    if(editingId){const g=state.goals.find(x=>x.id===editingId);if(!g||g.claimed)return;Object.assign(g,{name,target,description});}
+    else state.goals.push({id:id(),name,target,description,createdAt:new Date().toISOString(),claimed:false});
+    persist();modal("questGoalModal",false);render();notify(editingId?"Goal updated":"Quest goal created");editingId=null;
+  });
+  function openDeposit(){q("questDepositForm").reset();q("questDepositDate").value=today();modal("questDepositModal",true);}
+  q("questAddMoney").addEventListener("click",openDeposit);
+  q("questDepositCancel").addEventListener("click",()=>modal("questDepositModal",false));
+  q("questDepositForm").addEventListener("submit",e=>{
+    e.preventDefault();const amount=Number(q("questDepositAmount").value),date=q("questDepositDate").value,note=q("questDepositNote").value.trim();
+    if(!Number.isSafeInteger(amount)||amount<=0||!date){notify("Enter a valid positive whole-number amount");return;}
+    if(!Number.isSafeInteger(state.balance+amount)){notify("That amount is too large");return;}
+    state.balance+=amount;state.transactions.push({id:id(),type:"deposit",amount,date,note,label:"Quest savings added",createdAt:new Date().toISOString()});
+    persist();modal("questDepositModal",false);render();notify("Quest savings added");
+  });
+  function openClaim(goalId){
+    const g=state.goals.find(x=>x.id===goalId);if(!g||g.claimed||state.balance<g.target)return;
+    claimingId=goalId;const remaining=state.balance-g.target;
+    q("questClaimDetails").innerHTML='<div class="mini"><small>GOAL</small><strong>'+esc(g.name)+'</strong></div><div class="statgrid" style="margin-top:10px"><div class="mini"><small>WITHDRAWAL</small><strong>'+money(g.target)+'</strong></div><div class="mini"><small>REMAINING BALANCE</small><strong>'+money(remaining)+'</strong></div></div><p class="note">This amount will be deducted from your shared Quest balance. All other active goal progress will recalculate.</p>';
+    modal("questClaimModal",true);
+  }
+  q("questClaimCancel").addEventListener("click",()=>{claimingId=null;modal("questClaimModal",false);});
+  q("questClaimConfirm").addEventListener("click",()=>{
+    const g=state.goals.find(x=>x.id===claimingId);
+    if(!g||g.claimed||state.balance<g.target){claimingId=null;modal("questClaimModal",false);notify("This goal can no longer be claimed");return;}
+    state.balance-=g.target;g.claimed=true;g.claimedAt=new Date().toISOString();
+    state.transactions.push({id:id(),type:"withdrawal",amount:g.target,date:today(),note:"Goal claimed",label:g.name+" claimed",goalId:g.id,createdAt:new Date().toISOString()});
+    persist();claimingId=null;modal("questClaimModal",false);render();notify("Goal claimed successfully");
+  });
+  function deleteGoal(goalId){
+    const g=state.goals.find(x=>x.id===goalId);if(!g)return;
+    if(!confirm('Delete "'+g.name+'"? This will not change your shared Quest balance or transaction history.'))return;
+    state.goals=state.goals.filter(x=>x.id!==goalId);persist();render();notify("Quest goal deleted");
+  }
+  render();
+})();
+</script>
+</body></html>
