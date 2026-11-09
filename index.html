@@ -170,7 +170,6 @@ render();if('serviceWorker'in navigator)window.addEventListener('load',()=>navig
   q("questDepositForm").addEventListener("submit",e=>{
     e.preventDefault();const amount=Number(q("questDepositAmount").value),date=q("questDepositDate").value,note=q("questDepositNote").value.trim();
     if(!Number.isSafeInteger(amount)||amount<=0||!date){notify("Enter a valid positive whole-number amount");return;}
-    const note=q("questDepositNote").value.trim();
     if(editingTransactionId){
       const tx=state.transactions.find(t=>t.id===editingTransactionId&&t.type==="deposit");if(!tx){notify("Deposit not found");return;}
       const nextBalance=state.balance-tx.amount+amount;if(nextBalance<0){notify("Cannot reduce this deposit: part of it has already been used in a goal claim.");return;}
