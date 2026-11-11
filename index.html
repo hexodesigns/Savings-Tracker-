@@ -165,7 +165,7 @@ render();if('serviceWorker'in navigator)window.addEventListener('load',()=>navig
   });
   function openDeposit(tx=null){q("questDepositForm").reset();editingTransactionId=tx?.id||null;q("questDepositModal").querySelector("h2").textContent=tx?"Edit Quest savings":"Add to Quest savings";q("questDepositForm button.primary").textContent=tx?"Save changes":"Add savings";q("questDepositAmount").value=tx?.amount??"";q("questDepositNote").value=tx?.note??"";q("questDepositDate").value=tx?.date||today();modal("questDepositModal",true);}
   function deleteDeposit(txId){const tx=state.transactions.find(t=>t.id===txId&&t.type==="deposit");if(!tx)return;if(state.balance-tx.amount<0){notify("This deposit cannot be deleted because some of it has already been used in a goal claim.");return;}if(!confirm("Delete this Quest deposit of "+money(tx.amount)+"? The shared balance will be reduced."))return;state.balance-=tx.amount;state.transactions=state.transactions.filter(t=>t.id!==txId);persist();render();notify("Deposit deleted");}
-  q("questAddMoney").addEventListener("click",openDeposit);
+  q("questAddMoney").addEventListener("click",()=>openDeposit());
   q("questDepositCancel").addEventListener("click",()=>{editingTransactionId=null;modal("questDepositModal",false);});
   q("questDepositForm").addEventListener("submit",e=>{
     e.preventDefault();const amount=Number(q("questDepositAmount").value),date=q("questDepositDate").value,note=q("questDepositNote").value.trim();
