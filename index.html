@@ -166,7 +166,7 @@ render();if('serviceWorker'in navigator)window.addEventListener('load',()=>navig
   });
   function openDeposit(tx=null){q("questDepositForm").reset();editingTransactionId=tx?.id||null;q("questDepositModal").querySelector("h2").textContent=tx?"Edit Quest savings":"Add to Quest savings";q("questDepositForm button.primary").textContent=tx?"Save changes":"Add savings";q("questDepositAmount").value=tx?.amount??"";q("questDepositNote").value=tx?.note??"";q("questDepositDate").value=tx?.date||today();modal("questDepositModal",true);}
   function deleteDeposit(txId){const tx=state.transactions.find(t=>t.id===txId&&t.type==="deposit");if(!tx)return;if(state.balance-tx.amount<0){notify("This deposit cannot be deleted because some of it has already been used in a goal claim.");return;}if(!confirm("Delete this Quest deposit of "+money(tx.amount)+"? The shared balance will be reduced."))return;state.balance-=tx.amount;state.transactions=state.transactions.filter(t=>t.id!==txId);persist();render();notify("Deposit deleted");}
-  document.addEventListener("click",event=>{const button=event.target.closest("#questAddMoney");if(!button)return;event.preventDefault();openDeposit();},true);
+  q("questAddMoney").addEventListener("click",()=>openDeposit());
   q("questDepositCancel").addEventListener("click",()=>{editingTransactionId=null;modal("questDepositModal",false);});
   q("questDepositForm").addEventListener("submit",e=>{
     e.preventDefault();const amount=Number(q("questDepositAmount").value),date=q("questDepositDate").value,note=q("questDepositNote").value.trim();
@@ -203,6 +203,25 @@ render();if('serviceWorker'in navigator)window.addEventListener('load',()=>navig
     state.goals=state.goals.filter(x=>x.id!==goalId);persist();render();notify("Quest goal deleted");
   }
   render();
+})();
+</script>
+<script>
+(function(){
+  document.addEventListener("click",function(event){
+    var button=event.target.closest("#questAddMoney");
+    if(!button)return;
+    var form=document.getElementById("questDepositForm");
+    var modal=document.getElementById("questDepositModal");
+    if(!form||!modal)return;
+    form.reset();
+    document.getElementById("questDepositAmount").value="";
+    document.getElementById("questDepositNote").value="";
+    var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
+    document.getElementById("questDepositDate").value=d.toISOString().slice(0,10);
+    modal.querySelector("h2").textContent="Add to Quest savings";
+    form.querySelector("button.primary").textContent="Add savings";
+    modal.classList.add("show");
+  },true);
 })();
 </script>
 </body></html>
