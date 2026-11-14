@@ -1,39 +1,59 @@
-const CACHE='savenest-shell-v9';
-const FILES=['./','./index.html','./manifest.webmanifest','./icon.svg'];
-const FIREBASE_PREFIX='https://www.gstatic.com/firebasejs/';
-const INDEX_URL=()=>new URL('./index.html',self.registration.scope).href;
+const CACHE = 'savenest-shell-v10';
+const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
-// Install: fetch the shell straight from the network (bypass the HTTP cache) so a
-// new version can never be built from a stale copy. Activate immediately.
-self.addEventListener('install',e=>{
-  self.skipWaiting();
-  e.waitUntil(caches.open(CACHE).then(c=>Promise.all(FILES.map(f=>c.add(new Request(f,{cache:'reload'}))))));
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await cache.addAll(FILES);
+    await self.skipWaiting();
+  })());
 });
 
-// Activate: drop old caches, take control of open pages, and if this is an upgrade
-// reload any already-open (possibly stale) windows once so they run the new code.
-self.addEventListener('activate',e=>e.waitUntil((async()=>{
-  const keys=await caches.keys();
-  const upgraded=keys.some(k=>k!==CACHE);
-  await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));
-  await self.clients.claim();
-  if(upgraded){
-    const wins=await self.clients.matchAll({type:'window'});
-    wins.forEach(c=>{try{c.navigate(c.url).catch(()=>{})}catch(err){}});
-  }
-})()));
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(key => key.startsWith('savenest-shell-') && key !== CACHE).map(key => caches.delete(key)));
+    await self.clients.claim();
+  })());
+});
 
-// Same-origin files: network first (revalidated), cache only as the offline fallback.
-async function networkFirst(req){
-  const cache=await caches.open(CACHE);
-  const isNav=req.mode==='navigate';
-  const key=isNav?INDEX_URL():req.url;
-  try{
-    const res=await fetch(req.url,{cache:'no-cache'});
-    if(res&&res.ok&&res.type==='basic')await cache.put(key,res.clone());
-    return res;
-  }catch(err){
-    const hit=await cache.match(key,{ignoreSearch:true});
-    if(hit)return hit;
-    if(isNav){const idx=await cache.match(INDEX_URL());if(idx)return idx}
-    return Response.error();
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const isNavigation = request.mode === 'navigate';
+    const cacheKey = isNavigation ? new URL('./index.html', self.registration.scope).href : request;
+
+    try {
+      const response = await fetch(request, { cache: 'no-cache' });
+      if (response && response.ok) {
+        await cache.put(cacheKey, response.clone());
+      }
+      return response;
+    } catch (error) {
+      const cached = await cache.match(cacheKey, { ignoreSearch: true });
+      if (cached) return cached;
+      if (isNavigation) {
+        const shell = await cache.match(new URL('./index.html', self.registration.scope).href);
+        if (shell) return shell;
+      }
+      return Response.error();
+    }
+  })());
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil((async () => {
+    const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const client of windows) {
+      if ('focus' in client) return client.focus();
+    }
+    return self.clients.openWindow('./');
+  })());
+});
